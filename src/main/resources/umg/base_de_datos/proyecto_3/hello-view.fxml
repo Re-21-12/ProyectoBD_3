@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox alignment="CENTER" nodeOrientation="LEFT_TO_RIGHT" prefHeight="378.0" prefWidth="524.0" spacing="20.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/23" fx:controller="umg.base_de_datos.proyecto_3.MainController">
+    <padding>
+        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+    </padding>
+   <Pane prefHeight="349.0" prefWidth="514.0">
+      <children>
+         <Button layoutX="14.0" layoutY="288.0" mnemonicParsing="false" text="Posgress" textAlignment="JUSTIFY" />
+         <Button layoutX="14.0" layoutY="254.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="63.0" text="MySQL" textAlignment="JUSTIFY" />
+         <Button alignment="CENTER" layoutX="425.0" layoutY="288.0" mnemonicParsing="false" text="Sincronizar" textAlignment="JUSTIFY" />
+         <ListView layoutX="17.0" layoutY="18.0" prefHeight="102.0" prefWidth="486.0" />
+         <Button layoutX="226.0" layoutY="254.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="74.0" text="Insertar" textAlignment="JUSTIFY" />
+         <Button layoutX="226.0" layoutY="288.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="74.0" text="Actualizar" textAlignment="JUSTIFY" />
+         <Button layoutX="226.0" layoutY="222.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="74.0" text="Eliminar" textAlignment="JUSTIFY" />
+         <TextField layoutX="17.0" layoutY="150.0" />
+         <Label fx:id="welcomeText1" layoutX="19.0" layoutY="130.0" text="Ingresa aqui:" />
+      
+          <Label fx:id="welcomeText" layoutX="231.0" layoutY="-3.0" text="Consultas" />
+      </children>
+   </Pane>
+</VBox>
