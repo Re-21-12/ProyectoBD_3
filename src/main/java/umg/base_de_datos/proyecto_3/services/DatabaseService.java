@@ -1,6 +1,9 @@
 package umg.base_de_datos.proyecto_3.services;
 
+import umg.base_de_datos.proyecto_3.classes.Empleado;
 import umg.base_de_datos.proyecto_3.interfaces.DatabaseStrategy;
+
+import java.sql.SQLException;
 
 public class DatabaseService {
     private DatabaseStrategy strategy;
@@ -13,16 +16,16 @@ public class DatabaseService {
         strategy.connect();
     }
 
-    public void insert(String data) {
-        strategy.insert(data);
+    public void insert(Empleado empleado) throws SQLException {
+        strategy.insert(empleado);
     }
 
-    public void update(String data) {
-        strategy.update(data);
+    public void update(Empleado empleado) throws SQLException {
+        strategy.update(empleado);
     }
 
-    public void delete(String id) {
-        strategy.delete(id);
+    public void delete(String dpi) {
+        strategy.delete(dpi);
     }
 
     public void setStrategy(DatabaseStrategy strategy) {

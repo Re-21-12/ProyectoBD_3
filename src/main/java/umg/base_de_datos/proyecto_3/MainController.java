@@ -4,9 +4,12 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import umg.base_de_datos.proyecto_3.classes.Empleado;
 import umg.base_de_datos.proyecto_3.classes.MySQLDatabaseStrategy;
 import umg.base_de_datos.proyecto_3.classes.PostgresDatabaseStrategy;
 import umg.base_de_datos.proyecto_3.services.DatabaseService;
+
+import java.sql.SQLException;
 
 public class MainController {
     @FXML
@@ -33,8 +36,13 @@ public class MainController {
     @FXML
     public void onInsertButtonClick() {
         String data = inputField.getText();
-        dbService.insert(data);
-        listView.getItems().add(data);
+        Empleado empleado = parseEmpleado(data);
+        try {
+            dbService.insert(empleado);
+            listView.getItems().add(data);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
@@ -51,13 +59,34 @@ public class MainController {
         String data = inputField.getText();
         String selectedItem = listView.getSelectionModel().getSelectedItem();
         if (selectedItem != null) {
-            dbService.update(data);
-            listView.getItems().set(listView.getSelectionModel().getSelectedIndex(), data);
+            Empleado empleado = parseEmpleado(data);
+            try {
+                dbService.update(empleado);
+                listView.getItems().set(listView.getSelectionModel().getSelectedIndex(), data);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
     }
 
     @FXML
     public void onSynchronizeButtonClick() {
         // Lógica para sincronizar tablas entre las dos bases de datos
+    }
+
+    private Empleado parseEmpleado(String data) {
+        String[] datos = data.split(",");
+        Empleado empleado = new Empleado();
+        empleado.setDpi(datos[0]);
+        empleado.setPrimerNombre(datos[1]);
+        empleado.setSegundoNombre(datos[2]);
+        empleado.setPrimerApellido(datos[3]);
+        empleado.setSegundoApellido(datos[4]);
+        empleado.setDireccionDomiciliar(datos[5]);
+        empleado.setTelefonoCasa(datos[6]);
+        empleado.setTelefonoMovil(datos[7]);
+        empleado.setSalarioBase(datos[8]);
+        empleado.setBonificacion(datos[9]);
+        return empleado;
     }
 }

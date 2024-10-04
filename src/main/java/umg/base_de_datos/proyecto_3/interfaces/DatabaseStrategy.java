@@ -1,5 +1,7 @@
 package umg.base_de_datos.proyecto_3.interfaces;
 
+import umg.base_de_datos.proyecto_3.classes.Empleado;
+
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -9,11 +11,13 @@ import java.util.List;
 public interface DatabaseStrategy {
     void connect();
 
-    void insert(String data);
+    void insert(Empleado empleado) throws SQLException;
 
-    void update(String data);
+    void update(Empleado empleado) throws SQLException;
 
-    void delete(String id);
+    void delete(String dpi);
 
+    List<Empleado> select() throws SQLException;
+
+    Empleado selectById(String dpi) throws SQLException;
 }
-
