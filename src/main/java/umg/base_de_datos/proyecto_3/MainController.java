@@ -1,14 +1,19 @@
 package umg.base_de_datos.proyecto_3;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 import umg.base_de_datos.proyecto_3.classes.Empleado;
 import umg.base_de_datos.proyecto_3.classes.MySQLDatabaseStrategy;
 import umg.base_de_datos.proyecto_3.classes.PostgresDatabaseStrategy;
 import umg.base_de_datos.proyecto_3.services.DatabaseService;
 
+import java.io.IOException;
 import java.sql.SQLException;
 
 public class MainController {
@@ -89,4 +94,24 @@ public class MainController {
         empleado.setBonificacion(datos[9]);
         return empleado;
     }
+    /*Nueva ventana*/
+    @FXML
+    public void onOpenNewWindowClick() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("Formulario-view.fxml"));
+            Parent root = loader.load();
+
+            FormularioController controller = loader.getController();
+            controller.setDatabaseService(dbService);
+
+            Stage newStage = new Stage();
+            newStage.setTitle("Nueva Ventana");
+            newStage.setScene(new Scene(root));
+
+            newStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 }
