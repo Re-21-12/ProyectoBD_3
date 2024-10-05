@@ -59,27 +59,24 @@ public class FormularioController {
         }
     }
 
-    @FXML
-    public void onUpdateButtonClick() {
-        String data = dpiField.getText(); // Asume que el DPI es el identificador para actualizar
-        Empleado empleado = new Empleado(); // Crea el objeto empleado
-        empleado.setDpi(data); // Establece el DPI
-        empleado.setPrimerNombre(primerNombreField.getText());
-        empleado.setSegundoNombre(segundoNombreField.getText());
-        empleado.setPrimerApellido(primerApellidoField.getText());
-        empleado.setSegundoApellido(segundoApellidoField.getText());
-        empleado.setDireccionDomiciliar(direccionField.getText());
-        empleado.setTelefonoCasa(telefonoCasaField.getText());
-        empleado.setTelefonoMovil(telefonoMovilField.getText());
-        empleado.setSalarioBase(salarioBaseField.getText());
-        empleado.setBonificacion(bonificacionField.getText());
+    public void loadEmpleadoData(String dpi) throws SQLException {
+        Empleado empleado = dbService.selectById(dpi);
 
-        try {
-            dbService.update(empleado);
-            showAlert("Éxito", "Empleado actualizado correctamente.", AlertType.INFORMATION);
-        } catch (SQLException e) {
-            e.printStackTrace();
-            showAlert("Error", "No se pudo actualizar el empleado. " + e.getMessage(), AlertType.ERROR);
+        if (empleado != null) {
+            // Rellenar los campos del formulario con los datos del empleado
+            dpiField.setText(empleado.getDpi());
+            primerNombreField.setText(empleado.getPrimerNombre());
+            segundoNombreField.setText(empleado.getSegundoNombre());
+            primerApellidoField.setText(empleado.getPrimerApellido());
+            segundoApellidoField.setText(empleado.getSegundoApellido());
+            direccionField.setText(empleado.getDireccionDomiciliar());
+            telefonoCasaField.setText(empleado.getTelefonoCasa());
+            telefonoMovilField.setText(empleado.getTelefonoMovil());
+            salarioBaseField.setText(String.valueOf(empleado.getSalarioBase()));
+            bonificacionField.setText(String.valueOf(empleado.getBonificacion()));
+        } else {
+            // Mostrar alerta si no se encuentra el empleado
+            showAlert("Error", "No se encontró un empleado con el DPI especificado.",AlertType.ERROR);
         }
     }
 

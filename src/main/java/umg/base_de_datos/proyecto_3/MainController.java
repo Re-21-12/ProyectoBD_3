@@ -1,9 +1,11 @@
 package umg.base_de_datos.proyecto_3;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
@@ -22,7 +24,7 @@ public class MainController {
     @FXML
     private ListView<String> listView;
     @FXML
-    private TextField inputField;
+    private TextField dpiInputField;
 
     private DatabaseService dbService;
 
@@ -38,17 +40,6 @@ public class MainController {
         dbService.connect();
     }
 
-    @FXML
-    public void onInsertButtonClick() {
-        String data = inputField.getText();
-        Empleado empleado = parseEmpleado(data);
-        try {
-            dbService.insert(empleado);
-            listView.getItems().add(data);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
 
     @FXML
     public void onDeleteButtonClick() {
@@ -58,20 +49,49 @@ public class MainController {
             listView.getItems().remove(selectedItem);
         }
     }
+    @FXML
+    private void onUpdateButtonClick(ActionEvent event) {
+        String dpi = dpiInputField.getText();
+
+        if (dpi == null || dpi.isEmpty()) {
+            // Muestra una alerta si no se ingresó DPI
+            showAlert("Debe ingresar un DPI válido.");
+            return;
+        }
+
+        // Llamar al método que abre el formulario de edición
+        openFormularioEdicion(dpi);
+    }
 
     @FXML
-    public void onUpdateButtonClick() {
-        String data = inputField.getText();
-        String selectedItem = listView.getSelectionModel().getSelectedItem();
-        if (selectedItem != null) {
-            Empleado empleado = parseEmpleado(data);
-            try {
-                dbService.update(empleado);
-                listView.getItems().set(listView.getSelectionModel().getSelectedIndex(), data);
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+    // Método para abrir el formulario de edición
+    private void openFormularioEdicion(String dpi) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("Formulario-view.fxml"));
+            Parent root = loader.load();
+
+            // Obtener el controlador del formulario
+            FormularioController controller = loader.getController();
+            controller.setDatabaseService(dbService);
+
+            // Pasar el DPI al formulario para que busque al empleado y lo rellene
+            controller.loadEmpleadoData(dpi);
+
+            // Crear una nueva ventana para el formulario
+            Stage stage = new Stage();
+            stage.setTitle("Editar Empleado");
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException | SQLException e) {
+            e.printStackTrace();
         }
+    }
+
+    private void showAlert(String message) {
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle("Advertencia");
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 
     @FXML

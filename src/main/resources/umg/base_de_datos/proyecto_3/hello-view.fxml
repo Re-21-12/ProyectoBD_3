@@ -21,13 +21,13 @@
 
         <!--    <Button layoutX="226.0" layoutY="254.0" mnemonicParsing="false" onAction="#onInsertButtonClick"
                     prefHeight="25.0" prefWidth="74.0" text="Insertar" textAlignment="JUSTIFY"/>
-        -->    <Button layoutX="226.0" layoutY="288.0" mnemonicParsing="false" onAction="#onUpdateButtonClick" prefHeight="25.0" prefWidth="74.0" text="Actualizar" textAlignment="JUSTIFY" />
-            <Button layoutX="226.0" layoutY="222.0" mnemonicParsing="false" onAction="#onDeleteButtonClick" prefHeight="25.0" prefWidth="74.0" text="Eliminar" textAlignment="JUSTIFY" />
-            <TextField fx:id="inputField" layoutX="17.0" layoutY="150.0" />
+        -->    <Button layoutX="226.0" layoutY="301.0" mnemonicParsing="false" onAction="#onUpdateButtonClick" prefHeight="25.0" prefWidth="74.0" text="Actualizar" textAlignment="JUSTIFY" />
+            <Button layoutX="226.0" layoutY="267.0" mnemonicParsing="false" onAction="#onDeleteButtonClick" prefHeight="25.0" prefWidth="74.0" text="Eliminar" textAlignment="JUSTIFY" />
+            <TextField fx:id="dpiInputField" layoutX="17.0" layoutY="150.0" />
             <Label fx:id="welcomeText1" layoutX="19.0" layoutY="130.0" text="Ingresa aqui:" />
             <Label fx:id="welcomeText" layoutX="231.0" layoutY="-3.0" text="Consultas" />
             <!-- Botón para abrir nueva ventana -->
-            <Button layoutX="353.0" layoutY="254.0" mnemonicParsing="false" onAction="#onOpenNewWindowClick" text="Abrir Nueva Ventana" />
+            <Button layoutX="226.0" layoutY="235.0" mnemonicParsing="false" onAction="#onOpenNewWindowClick" prefHeight="25.0" prefWidth="74.0" text="Insertar" />
         </children>
     </Pane>
 </VBox>

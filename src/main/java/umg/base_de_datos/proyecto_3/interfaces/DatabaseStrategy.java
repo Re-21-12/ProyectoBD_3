@@ -13,11 +13,11 @@ public interface DatabaseStrategy {
 
     void insert(Empleado empleado) throws SQLException;
 
-    void update(Empleado empleado) throws SQLException;
+    void update(Empleado empleado, String dpi) throws SQLException;
 
     void delete(String dpi);
 
-    List<Empleado> select() throws SQLException;
+    List<Empleado> selectAll() throws SQLException;
 
     Empleado selectById(String dpi) throws SQLException;
 }

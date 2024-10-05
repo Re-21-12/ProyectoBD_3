@@ -41,7 +41,8 @@ public class PostgresDatabaseStrategy implements DatabaseStrategy {
 
     //Todo: Revisar si esta bien el update
     @Override
-    public void update(Empleado empleado) {
+    public void update(Empleado empleado,String dpi) {
+        empleado = selectById( dpi);
         String query = "UPDATE empleados SET primer_nombre = ?, segundo_nombre = ?, primer_apellido = ?, " +
                 "segundo_apellido = ?, direccion_domiciliar = ?, telefono_casa = ?, telefono_movil = ?, " +
                 "salario_base = ?, bonificacion = ? WHERE dpi = ?";
@@ -62,23 +63,10 @@ public class PostgresDatabaseStrategy implements DatabaseStrategy {
         }
     }
 
-
     @Override
-    public void delete(String dpi) {
-        String query = "DELETE FROM empleados WHERE dpi = ?";
-        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-            preparedStatement.setString(1, dpi);
-            preparedStatement.executeUpdate();  // Usar executeUpdate para eliminar registros
-            System.out.println("Empleado con DPI " + dpi + " ha sido eliminado.");
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Override
-    public List<Empleado> select() {
-        List<Empleado> empleados = new ArrayList<>();
+    public List<Empleado> selectAll() {
         String query = "SELECT * FROM empleados";
+        List<Empleado> empleados = new ArrayList<>();
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
@@ -99,6 +87,19 @@ public class PostgresDatabaseStrategy implements DatabaseStrategy {
             e.printStackTrace();
         }
         return empleados;
+    }
+
+
+    @Override
+    public void delete(String dpi) {
+        String query = "DELETE FROM empleados WHERE dpi = ?";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setString(1, dpi);
+            preparedStatement.executeUpdate();  // Usar executeUpdate para eliminar registros
+            System.out.println("Empleado con DPI " + dpi + " ha sido eliminado.");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public Empleado selectById(String dpi) {
