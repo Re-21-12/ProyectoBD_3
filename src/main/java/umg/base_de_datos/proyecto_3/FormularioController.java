@@ -3,6 +3,7 @@ package umg.base_de_datos.proyecto_3;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import umg.base_de_datos.proyecto_3.classes.Empleado;
@@ -14,9 +15,11 @@ public class FormularioController {
     @FXML
     private TextField dpiField, primerNombreField, segundoNombreField, primerApellidoField, segundoApellidoField,
             direccionField, telefonoCasaField, telefonoMovilField, salarioBaseField, bonificacionField;
+    @FXML
+    private Button insertButton, updateButton;
 
     private DatabaseService dbService; // Instancia de DatabaseService
-
+    private Empleado empleado;
     public void setDatabaseService(DatabaseService dbService) {
         this.dbService = dbService; // Establece la instancia recibida
     }
@@ -36,6 +39,10 @@ public class FormularioController {
         empleado.setSalarioBase(salarioBaseField.getText());
         empleado.setBonificacion(bonificacionField.getText());
 
+        if(empleado.getDpi() == null || empleado.getDpi().isEmpty()){
+            showAlert("Error", "El DPI no puede estar vacío.", AlertType.ERROR);
+            return;
+        }
         // Insertar el empleado en la base de datos
         try {
             dbService.insert(empleado); // Aquí utilizas la instancia de dbService
@@ -43,6 +50,37 @@ public class FormularioController {
             showAlert("Éxito", "Empleado insertado correctamente.", AlertType.INFORMATION);
         } catch (SQLException | NumberFormatException e) {
             showAlert("Error", "No se pudo insertar el empleado. " + e.getMessage(), AlertType.ERROR);
+            e.printStackTrace();
+        }
+    }
+
+    public void setEmpleado(Empleado empleado) throws SQLException {
+        this.empleado = empleado;
+        loadEmpleadoData(empleado.getDpi());
+    }
+
+    @FXML
+    public void onUpdateButtonClick() throws SQLException {
+        // Obtener los valores de los campos de texto y crear un objeto Empleado
+        empleado.setDpi(dpiField.getText());
+        Empleado empleadoActualizado = new Empleado();
+        empleadoActualizado.setDpi(dpiField.getText());
+        empleadoActualizado.setPrimerNombre(primerNombreField.getText());
+        empleadoActualizado.setSegundoNombre(segundoNombreField.getText());
+        empleadoActualizado.setPrimerApellido(primerApellidoField.getText());
+        empleadoActualizado.setSegundoApellido(segundoApellidoField.getText());
+        empleadoActualizado.setDireccionDomiciliar(direccionField.getText());
+        empleadoActualizado.setTelefonoCasa(telefonoCasaField.getText());
+        empleadoActualizado.setTelefonoMovil(telefonoMovilField.getText());
+        empleadoActualizado.setSalarioBase(salarioBaseField.getText());
+        empleadoActualizado.setBonificacion(bonificacionField.getText());
+        // Insertar el empleado en la base de datos
+        try {
+            dbService.update(empleadoActualizado, empleado.getDpi()); // Aquí utilizas la instancia de dbService
+            System.out.println("Empleado actualizado: " + empleadoActualizado);
+            showAlert("Éxito", "Empleado actualizado correctamente.", AlertType.INFORMATION);
+        } catch (SQLException | NumberFormatException e) {
+            showAlert("Error", "No se pudo actualizar el empleado. " + e.getMessage(), AlertType.ERROR);
             e.printStackTrace();
         }
     }
@@ -74,10 +112,17 @@ public class FormularioController {
             telefonoMovilField.setText(empleado.getTelefonoMovil());
             salarioBaseField.setText(String.valueOf(empleado.getSalarioBase()));
             bonificacionField.setText(String.valueOf(empleado.getBonificacion()));
+
+            dpiField.setDisable(true);
+            insertButton.setDisable(true);
         } else {
             // Mostrar alerta si no se encuentra el empleado
-            showAlert("Error", "No se encontró un empleado con el DPI especificado.",AlertType.ERROR);
+            showAlert("Error", "No se encontró un empleado con el DPI especificado.", AlertType.ERROR);
         }
+    }
+
+    public void loadEmpleadoData() throws SQLException {
+        updateButton.setDisable(true);
     }
 
     @FXML

@@ -106,4 +106,20 @@ public class Empleado {
     public void setBonificacion(String bonificacion) {
         this.bonificacion = bonificacion;
     }
+
+    @Override
+    public String toString() {
+        return "Empleado{" +
+                "dpi='" + dpi + '\'' +
+                ", primerNombre='" + primerNombre + '\'' +
+                ", segundoNombre='" + segundoNombre + '\'' +
+                ", primerApellido='" + primerApellido + '\'' +
+                ", segundoApellido='" + segundoApellido + '\'' +
+                ", direccionDomiciliar='" + direccionDomiciliar + '\'' +
+                ", telefonoCasa='" + telefonoCasa + '\'' +
+                ", telefonoMovil='" + telefonoMovil + '\'' +
+                ", salarioBase='" + salarioBase + '\'' +
+                ", bonificacion='" + bonificacion + '\'' +
+                '}';
+    }
 }

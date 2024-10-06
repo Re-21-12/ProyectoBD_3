@@ -14,6 +14,8 @@ import umg.base_de_datos.proyecto_3.classes.Empleado;
 import umg.base_de_datos.proyecto_3.classes.MySQLDatabaseStrategy;
 import umg.base_de_datos.proyecto_3.classes.PostgresDatabaseStrategy;
 import umg.base_de_datos.proyecto_3.services.DatabaseService;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -42,20 +44,23 @@ public class MainController {
 
 
     @FXML
-    public void onDeleteButtonClick() {
-        String selectedItem = listView.getSelectionModel().getSelectedItem();
-        if (selectedItem != null) {
-            dbService.delete(selectedItem);
-            listView.getItems().remove(selectedItem);
-        }
+    public void onDeleteButtonClick() throws SQLException {
+        if (dpiInputField.getText().isEmpty())
+            showAlert("Error", "Debe ingresar un DPI", AlertType.ERROR);
+
+        if (dbService.selectById(dpiInputField.getText()) == null)
+            showAlert("Error", "No se encuentra este empleado.", AlertType.ERROR);
+
+        dbService.delete(dpiInputField.getText());
     }
+
     @FXML
     private void onUpdateButtonClick(ActionEvent event) {
         String dpi = dpiInputField.getText();
 
         if (dpi == null || dpi.isEmpty()) {
             // Muestra una alerta si no se ingresó DPI
-            showAlert("Debe ingresar un DPI válido.");
+            showAlert("Error", "Debe ignresar un DPI.", AlertType.ERROR);
             return;
         }
 
@@ -73,9 +78,8 @@ public class MainController {
             // Obtener el controlador del formulario
             FormularioController controller = loader.getController();
             controller.setDatabaseService(dbService);
-
-            // Pasar el DPI al formulario para que busque al empleado y lo rellene
-            controller.loadEmpleadoData(dpi);
+            Empleado empleado = dbService.selectById(dpi);
+            controller.setEmpleado(empleado);
 
             // Crear una nueva ventana para el formulario
             Stage stage = new Stage();
@@ -87,9 +91,10 @@ public class MainController {
         }
     }
 
-    private void showAlert(String message) {
-        Alert alert = new Alert(Alert.AlertType.WARNING);
-        alert.setTitle("Advertencia");
+    private void showAlert(String title, String message, Alert.AlertType alertType) {
+        Alert alert = new Alert(alertType);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();
     }
@@ -99,21 +104,6 @@ public class MainController {
         // Lógica para sincronizar tablas entre las dos bases de datos
     }
 
-    private Empleado parseEmpleado(String data) {
-        String[] datos = data.split(",");
-        Empleado empleado = new Empleado();
-        empleado.setDpi(datos[0]);
-        empleado.setPrimerNombre(datos[1]);
-        empleado.setSegundoNombre(datos[2]);
-        empleado.setPrimerApellido(datos[3]);
-        empleado.setSegundoApellido(datos[4]);
-        empleado.setDireccionDomiciliar(datos[5]);
-        empleado.setTelefonoCasa(datos[6]);
-        empleado.setTelefonoMovil(datos[7]);
-        empleado.setSalarioBase(datos[8]);
-        empleado.setBonificacion(datos[9]);
-        return empleado;
-    }
     /*Nueva ventana*/
     @FXML
     public void onOpenNewWindowClick() {
@@ -123,13 +113,13 @@ public class MainController {
 
             FormularioController controller = loader.getController();
             controller.setDatabaseService(dbService);
-
+            controller.loadEmpleadoData();
             Stage newStage = new Stage();
-            newStage.setTitle("Nueva Ventana");
+            newStage.setTitle("Insertar Ventana");
             newStage.setScene(new Scene(root));
 
             newStage.show();
-        } catch (IOException e) {
+        } catch (IOException | SQLException e) {
             e.printStackTrace();
         }
     }

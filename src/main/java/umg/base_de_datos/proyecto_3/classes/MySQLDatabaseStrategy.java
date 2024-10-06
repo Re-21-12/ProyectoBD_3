@@ -42,10 +42,8 @@ public class MySQLDatabaseStrategy implements DatabaseStrategy {
     //Todo: Revisar si esta bien el update
     @Override
     public void update(Empleado empleado,String dpi) {
-        empleado = selectById( dpi);
-        String query = "UPDATE empleados SET primer_nombre = ?, segundo_nombre = ?, primer_apellido = ?, " +
-                "segundo_apellido = ?, direccion_domiciliar = ?, telefono_casa = ?, telefono_movil = ?, " +
-                "salario_base = ?, bonificacion = ? WHERE dpi = ?";
+        String query = "UPDATE empleados SET primer_nombre = ?, segundo_nombre = ?, primer_apellido = ?,segundo_apellido = ?, direccion_domiciliar = ?, telefono_de_casa = ?, telefono_movil = ?,salario_base = ?, bonificacion = ? WHERE dpi = ?";
+
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setString(1, empleado.getPrimerNombre());
             preparedStatement.setString(2, empleado.getSegundoNombre());

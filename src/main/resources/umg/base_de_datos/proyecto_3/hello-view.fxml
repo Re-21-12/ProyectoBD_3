@@ -19,9 +19,7 @@
             <Button alignment="CENTER" layoutX="404.0" layoutY="288.0" mnemonicParsing="false" onAction="#onSynchronizeButtonClick" text="Sincronizar" textAlignment="JUSTIFY" />
             <ListView fx:id="listView" layoutX="17.0" layoutY="18.0" prefHeight="102.0" prefWidth="486.0" />
 
-        <!--    <Button layoutX="226.0" layoutY="254.0" mnemonicParsing="false" onAction="#onInsertButtonClick"
-                    prefHeight="25.0" prefWidth="74.0" text="Insertar" textAlignment="JUSTIFY"/>
-        -->    <Button layoutX="226.0" layoutY="301.0" mnemonicParsing="false" onAction="#onUpdateButtonClick" prefHeight="25.0" prefWidth="74.0" text="Actualizar" textAlignment="JUSTIFY" />
+             <Button layoutX="226.0" layoutY="301.0" mnemonicParsing="false" onAction="#onUpdateButtonClick" prefHeight="25.0" prefWidth="74.0" text="Actualizar" textAlignment="JUSTIFY" />
             <Button layoutX="226.0" layoutY="267.0" mnemonicParsing="false" onAction="#onDeleteButtonClick" prefHeight="25.0" prefWidth="74.0" text="Eliminar" textAlignment="JUSTIFY" />
             <TextField fx:id="dpiInputField" layoutX="17.0" layoutY="150.0" />
             <Label fx:id="welcomeText1" layoutX="19.0" layoutY="130.0" text="Ingresa aqui:" />
