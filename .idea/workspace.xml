@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="24a44b8f-2f46-4995-88a4-6ba4af680ab2" name="Changes" comment="Se agrego la sincornizacion" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+        <option value="FxmlFile" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;Re-21-12&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/Re-21-12/ProyectoBD_3&quot;,
+    &quot;accountId&quot;: &quot;b5b1c3f6-a577-4455-8cb9-b64fff7edb4b&quot;
+  }
+}</component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHomeTypeForPersistence" value="WRAPPER" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 4
+}</component>
+  <component name="ProjectId" id="2muWJbS8lmCcpxQ1cPI9kOu5hQU" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "Application.HelloApplication.executor": "Run",
+    "Application.MainApplication.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "master",
+    "ignore.virus.scanning.warn.message": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "E:/Tareas a lo desgraciao/Proyecto_3",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "project.propVCSSupport.DirectoryMappings",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="umg.base_de_datos.proyecto_3" />
+    </key>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-b114ca120d71-intellij.indexing.shared.core-IU-242.20224.419" />
+        <option value="bundled-js-predefined-d6986cc7102b-410509235cf1-JavaScript-IU-242.20224.419" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="24a44b8f-2f46-4995-88a4-6ba4af680ab2" name="Changes" comment="" />
+      <created>1727926875189</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1727926875189</updated>
+      <workItem from="1727926876692" duration="4672000" />
+      <workItem from="1727934217334" duration="3781000" />
+      <workItem from="1728009984201" duration="10537000" />
+      <workItem from="1728106450960" duration="3764000" />
+      <workItem from="1728191763219" duration="4651000" />
+      <workItem from="1728271825314" duration="9988000" />
+    </task>
+    <task id="LOCAL-00001" summary="Creacion de Interfaces y disenio de clases">
+      <option name="closed" value="true" />
+      <created>1727935561977</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1727935561978</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Se corrigieron las consultas">
+      <option name="closed" value="true" />
+      <created>1727938190854</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1727938190854</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Se cambiaron las consultas y se agrego la conexion a base de datos postgres">
+      <option name="closed" value="true" />
+      <created>1728015753746</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1728015753746</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Se agrego insert para mysql y postgress">
+      <option name="closed" value="true" />
+      <created>1728021112979</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1728021112979</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Se agrego update para mysql y postgress">
+      <option name="closed" value="true" />
+      <created>1728110976250</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1728110976250</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Se termino el CRUD y se agregaron notas de advertencia">
+      <option name="closed" value="true" />
+      <created>1728196445412</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1728196445412</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Se agrego la sincornizacion">
+      <option name="closed" value="true" />
+      <created>1728284139585</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1728284139585</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Creacion de Interfaces y disenio de clases" />
+    <MESSAGE value="Se corrigieron las consultas" />
+    <MESSAGE value="Se cambiaron las consultas y se agrego la conexion a base de datos postgres" />
+    <MESSAGE value="Se agrego insert para mysql y postgress" />
+    <MESSAGE value="Se agrego update para mysql y postgress" />
+    <MESSAGE value="Se termino el CRUD y se agregaron notas de advertencia" />
+    <MESSAGE value="Se agrego la sincornizacion" />
+    <option name="LAST_COMMIT_MESSAGE" value="Se agrego la sincornizacion" />
+  </component>
+</project>
