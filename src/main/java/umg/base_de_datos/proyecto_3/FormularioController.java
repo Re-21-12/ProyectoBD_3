@@ -8,6 +8,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import umg.base_de_datos.proyecto_3.classes.Empleado;
 import umg.base_de_datos.proyecto_3.services.DatabaseService;
+import umg.base_de_datos.proyecto_3.helpers.InsercionesNuevas;
 
 import java.sql.SQLException;
 
@@ -20,6 +21,7 @@ public class FormularioController {
 
     private DatabaseService dbService; // Instancia de DatabaseService
     private Empleado empleado;
+    private InsercionesNuevas helper = new InsercionesNuevas();
     public void setDatabaseService(DatabaseService dbService) {
         this.dbService = dbService; // Establece la instancia recibida
     }
@@ -40,16 +42,16 @@ public class FormularioController {
         empleado.setBonificacion(bonificacionField.getText());
 
         if(empleado.getDpi() == null || empleado.getDpi().isEmpty()){
-            showAlert("Error", "El DPI no puede estar vacío.", AlertType.ERROR);
+            helper.showAlert("Error", "El DPI no puede estar vacío.", AlertType.ERROR);
             return;
         }
         // Insertar el empleado en la base de datos
         try {
             dbService.insert(empleado); // Aquí utilizas la instancia de dbService
             System.out.println("Empleado insertado: " + empleado);
-            showAlert("Éxito", "Empleado insertado correctamente.", AlertType.INFORMATION);
+            helper.showAlert("Éxito", "Empleado insertado correctamente.", AlertType.INFORMATION);
         } catch (SQLException | NumberFormatException e) {
-            showAlert("Error", "No se pudo insertar el empleado. " + e.getMessage(), AlertType.ERROR);
+            helper.showAlert("Error", "No se pudo insertar el empleado. " + e.getMessage(), AlertType.ERROR);
             e.printStackTrace();
         }
     }
@@ -78,9 +80,9 @@ public class FormularioController {
         try {
             dbService.update(empleadoActualizado, empleado.getDpi()); // Aquí utilizas la instancia de dbService
             System.out.println("Empleado actualizado: " + empleadoActualizado);
-            showAlert("Éxito", "Empleado actualizado correctamente.", AlertType.INFORMATION);
+            helper.showAlert("Éxito", "Empleado actualizado correctamente.", AlertType.INFORMATION);
         } catch (SQLException | NumberFormatException e) {
-            showAlert("Error", "No se pudo actualizar el empleado. " + e.getMessage(), AlertType.ERROR);
+            helper.showAlert("Error", "No se pudo actualizar el empleado. " + e.getMessage(), AlertType.ERROR);
             e.printStackTrace();
         }
     }
@@ -91,9 +93,9 @@ public class FormularioController {
         if (selectedItem != null) {
             dbService.delete(selectedItem);
             System.out.println("Empleado eliminado: " + selectedItem);
-            showAlert("Éxito", "Empleado eliminado correctamente.", AlertType.INFORMATION);
+            helper.showAlert("Éxito", "Empleado eliminado correctamente.", AlertType.INFORMATION);
         } else {
-            showAlert("Advertencia", "Seleccione un empleado para eliminar.", AlertType.WARNING);
+            helper.showAlert("Advertencia", "Seleccione un empleado para eliminar.", AlertType.WARNING);
         }
     }
 
@@ -117,7 +119,7 @@ public class FormularioController {
             insertButton.setDisable(true);
         } else {
             // Mostrar alerta si no se encuentra el empleado
-            showAlert("Error", "No se encontró un empleado con el DPI especificado.", AlertType.ERROR);
+            helper.showAlert("Error", "No se encontró un empleado con el DPI especificado.", AlertType.ERROR);
         }
     }
 
@@ -132,11 +134,5 @@ public class FormularioController {
         stage.close();
     }
 
-    private void showAlert(String title, String message, AlertType alertType) {
-        Alert alert = new Alert(alertType);
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-        alert.showAndWait();
-    }
+
 }

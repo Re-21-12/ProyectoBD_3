@@ -8,24 +8,27 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox alignment="CENTER" nodeOrientation="LEFT_TO_RIGHT" prefHeight="378.0" prefWidth="524.0" spacing="20.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="umg.base_de_datos.proyecto_3.MainController">
+<VBox alignment="CENTER" nodeOrientation="LEFT_TO_RIGHT" prefHeight="426.0" prefWidth="841.0" spacing="20.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="umg.base_de_datos.proyecto_3.MainController">
     <padding>
         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
     </padding>
-    <Pane prefHeight="349.0" prefWidth="514.0">
+    <Pane prefHeight="412.0" prefWidth="564.0">
         <children>
             <Button layoutX="14.0" layoutY="288.0" mnemonicParsing="false" onAction="#onPostgresButtonClick" text="Posgress" textAlignment="JUSTIFY" />
             <Button layoutX="14.0" layoutY="254.0" mnemonicParsing="false" onAction="#onMySQLButtonClick" prefHeight="25.0" prefWidth="63.0" text="MySQL" textAlignment="JUSTIFY" />
-            <Button alignment="CENTER" layoutX="404.0" layoutY="288.0" mnemonicParsing="false" onAction="#onSynchronizeButtonClick" text="Sincronizar" textAlignment="JUSTIFY" />
-            <ListView fx:id="listView" layoutX="17.0" layoutY="18.0" prefHeight="102.0" prefWidth="486.0" />
+            <Button alignment="CENTER" layoutX="732.0" layoutY="364.0" mnemonicParsing="false" onAction="#onSynchronizeButtonClick" text="Sincronizar" textAlignment="JUSTIFY" />
+            <ListView fx:id="MySQL" layoutX="402.0" layoutY="28.0" prefHeight="102.0" prefWidth="416.0" />
 
-             <Button layoutX="226.0" layoutY="301.0" mnemonicParsing="false" onAction="#onUpdateButtonClick" prefHeight="25.0" prefWidth="74.0" text="Actualizar" textAlignment="JUSTIFY" />
-            <Button layoutX="226.0" layoutY="267.0" mnemonicParsing="false" onAction="#onDeleteButtonClick" prefHeight="25.0" prefWidth="74.0" text="Eliminar" textAlignment="JUSTIFY" />
+             <Button layoutX="330.0" layoutY="248.0" mnemonicParsing="false" onAction="#onUpdateButtonClick" prefHeight="25.0" prefWidth="74.0" text="Actualizar" textAlignment="JUSTIFY" />
+            <Button layoutX="416.0" layoutY="214.0" mnemonicParsing="false" onAction="#onDeleteButtonClick" prefHeight="25.0" prefWidth="74.0" text="Eliminar" textAlignment="JUSTIFY" />
             <TextField fx:id="dpiInputField" layoutX="17.0" layoutY="150.0" />
             <Label fx:id="welcomeText1" layoutX="19.0" layoutY="130.0" text="Ingresa aqui:" />
-            <Label fx:id="welcomeText" layoutX="231.0" layoutY="-3.0" text="Consultas" />
             <!-- Botón para abrir nueva ventana -->
-            <Button layoutX="226.0" layoutY="235.0" mnemonicParsing="false" onAction="#onOpenNewWindowClick" prefHeight="25.0" prefWidth="74.0" text="Insertar" />
+            <Button layoutX="330.0" layoutY="214.0" mnemonicParsing="false" onAction="#onOpenNewWindowClick" prefHeight="25.0" prefWidth="74.0" text="Insertar" />
+         <ListView fx:id="Postgress" layoutY="28.0" prefHeight="102.0" prefWidth="396.0" />
+            <Label fx:id="welcomeText" layoutX="86.0" layoutY="6.0" text="Posgress" />
+         <Label fx:id="welcomeText2" layoutX="562.0" layoutY="6.0" text="MySQL" />
+         <Button layoutX="416.0" layoutY="248.0" mnemonicParsing="false" onAction="#onShow" prefHeight="25.0" prefWidth="74.0" text="Mostrar" />
         </children>
     </Pane>
 </VBox>

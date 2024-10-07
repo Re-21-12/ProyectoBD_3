@@ -1,5 +1,6 @@
 package umg.base_de_datos.proyecto_3.interfaces;
 
+import umg.base_de_datos.proyecto_3.classes.Bitacora;
 import umg.base_de_datos.proyecto_3.classes.Empleado;
 
 import java.sql.Connection;
@@ -18,6 +19,9 @@ public interface DatabaseStrategy {
     void delete(String dpi);
 
     List<Empleado> selectAll() throws SQLException;
+    List<Bitacora> selectAllBitacora() throws SQLException;
 
     Empleado selectById(String dpi) throws SQLException;
+
+    int count() throws SQLException;
 }

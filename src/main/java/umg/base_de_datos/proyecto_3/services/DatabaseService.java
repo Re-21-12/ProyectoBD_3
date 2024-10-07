@@ -1,5 +1,6 @@
 package umg.base_de_datos.proyecto_3.services;
 
+import umg.base_de_datos.proyecto_3.classes.Bitacora;
 import umg.base_de_datos.proyecto_3.classes.Empleado;
 import umg.base_de_datos.proyecto_3.interfaces.DatabaseStrategy;
 
@@ -39,5 +40,13 @@ public class DatabaseService {
 
     public List<Empleado> selectAll() throws SQLException {
         return strategy.selectAll();
+    }
+
+    public List<Bitacora> selectAllBitacora() throws SQLException {
+        return strategy.selectAllBitacora();
+    }
+
+    public int count() throws SQLException {
+        return strategy.count();
     }
 }

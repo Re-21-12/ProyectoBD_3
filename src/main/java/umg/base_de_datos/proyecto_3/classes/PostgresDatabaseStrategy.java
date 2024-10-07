@@ -59,6 +59,20 @@ public class PostgresDatabaseStrategy implements DatabaseStrategy {
             e.printStackTrace();
         }
     }
+    @Override
+    public int count() {
+        String query = "SELECT COUNT(*) FROM empleados";
+        int count = 0;
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                count = resultSet.getInt(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return count;
+    }
 
     @Override
     public List<Empleado> selectAll() {
@@ -86,6 +100,27 @@ public class PostgresDatabaseStrategy implements DatabaseStrategy {
         return empleados;
     }
 
+    @Override
+    public List<Bitacora> selectAllBitacora() {
+        String query = "SELECT * FROM bitacora";
+        List<Bitacora> bitacoras = new ArrayList<>();
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                Bitacora bitacora = new Bitacora();
+                bitacora.setId_bitacora(resultSet.getInt("id_bitacora"));
+                bitacora.setDpi(resultSet.getString("dpi"));
+                bitacora.setCampo_modificado(resultSet.getString("campo_modificado"));
+                bitacora.setValor_anterior(resultSet.getString("valor_anterior"));
+                bitacora.setValor_nuevo(resultSet.getString("valor_nuevo"));
+                bitacora.setFecha(resultSet.getString("fecha"));
+                bitacoras.add(bitacora);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return bitacoras;
+    }
 
     @Override
     public void delete(String dpi) {

@@ -109,17 +109,18 @@ public class Empleado {
 
     @Override
     public String toString() {
-        return "Empleado{" +
-                "dpi='" + dpi + '\'' +
-                ", primerNombre='" + primerNombre + '\'' +
-                ", segundoNombre='" + segundoNombre + '\'' +
-                ", primerApellido='" + primerApellido + '\'' +
-                ", segundoApellido='" + segundoApellido + '\'' +
-                ", direccionDomiciliar='" + direccionDomiciliar + '\'' +
-                ", telefonoCasa='" + telefonoCasa + '\'' +
-                ", telefonoMovil='" + telefonoMovil + '\'' +
-                ", salarioBase='" + salarioBase + '\'' +
-                ", bonificacion='" + bonificacion + '\'' +
+        return "Empleado {" +
+                "DPI: '" + dpi + '\'' +
+                ", Primer Nombre: '" + primerNombre + '\'' +
+                ", Segundo Nombre: '" + segundoNombre + '\'' +
+                ", Primer Apellido: '" + primerApellido + '\'' +
+                ", Segundo Apellido: '" + segundoApellido + '\'' +
+                ", Dirección Domiciliar: '" + direccionDomiciliar + '\'' +
+                ", Teléfono Casa: '" + telefonoCasa + '\'' +
+                ", Teléfono Móvil: '" + telefonoMovil + '\'' +
+                ", Salario Base: '" + salarioBase + '\'' +
+                ", Bonificación: '" + bonificacion + '\'' +
                 '}';
     }
+
 }
