@@ -15,13 +15,13 @@ import umg.base_de_datos.proyecto_3.classes.MySQLDatabaseStrategy;
 import umg.base_de_datos.proyecto_3.classes.PostgresDatabaseStrategy;
 import umg.base_de_datos.proyecto_3.services.DatabaseService;
 import javafx.scene.control.Alert.AlertType;
-
 import umg.base_de_datos.proyecto_3.helpers.InsercionesNuevas;
 
 import java.io.IOException;
 import java.sql.SQLException;
 
 public class MainController {
+
     @FXML
     private Label welcomeText;
     @FXML
@@ -31,34 +31,59 @@ public class MainController {
     @FXML
     private TextField dpiInputField;
 
-    private DatabaseService dbService;
+    private DatabaseService mysqlService;
+    private DatabaseService postgresService;
+    private DatabaseService dbService;  // Referencia dinámica para cambiar entre instancias
     private InsercionesNuevas insercionesNuevas = new InsercionesNuevas();
     private String nombreDatabase = "";
 
+    // Inicializamos las conexiones solo una vez
+    public MainController() {
+        mysqlService = new DatabaseService(new MySQLDatabaseStrategy());
+        postgresService = new DatabaseService(new PostgresDatabaseStrategy());
+    }
+
+    // Método para cambiar la referencia de base de datos actual
+    private void switchDatabaseService(String tipoDatabase) {
+        switch (tipoDatabase) {
+            case "MySQL":
+                dbService = mysqlService;  // Apuntamos a la instancia de MySQL
+                nombreDatabase = "MySQL";
+                break;
+            case "Postgress":
+                dbService = postgresService;  // Apuntamos a la instancia de Postgres
+                nombreDatabase = "Postgress";
+                break;
+        }
+
+        // Aseguramos que esté conectada
+        dbService.connect();
+    }
+
     @FXML
     public void onMySQLButtonClick() {
-        nombreDatabase = "MySQL";
-        dbService = new DatabaseService(new MySQLDatabaseStrategy());
-        dbService.connect();
+        switchDatabaseService("MySQL");
     }
 
     @FXML
     public void onPostgresButtonClick() {
-        nombreDatabase = "Postgress";
-        dbService = new DatabaseService(new PostgresDatabaseStrategy());
-        dbService.connect();
+        switchDatabaseService("Postgress");
     }
-
 
     @FXML
     public void onDeleteButtonClick() throws SQLException {
-        if (dpiInputField.getText().isEmpty())
+        if (dpiInputField.getText().isEmpty()) {
             insercionesNuevas.showAlert("Error", "Debe ingresar un DPI", AlertType.ERROR);
+            return;
+        }
 
-        if (dbService.selectById(dpiInputField.getText()) == null)
+        if (dbService.selectById(dpiInputField.getText()) == null) {
             insercionesNuevas.showAlert("Error", "No se encuentra este empleado.", AlertType.ERROR);
+            return;
+        }
 
         dbService.delete(dpiInputField.getText());
+        insercionesNuevas.showAlert("Éxito", "Empleado eliminado correctamente.", AlertType.INFORMATION);
     }
 
     @FXML
@@ -66,29 +91,23 @@ public class MainController {
         String dpi = dpiInputField.getText();
 
         if (dpi == null || dpi.isEmpty()) {
-            // Muestra una alerta si no se ingresó DPI
-            insercionesNuevas.showAlert("Error", "Debe ignresar un DPI.", AlertType.ERROR);
+            insercionesNuevas.showAlert("Error", "Debe ingresar un DPI.", AlertType.ERROR);
             return;
         }
 
-        // Llamar al método que abre el formulario de edición
         openFormularioEdicion(dpi);
     }
 
-    @FXML
-    // Método para abrir el formulario de edición
     private void openFormularioEdicion(String dpi) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("Formulario-view.fxml"));
             Parent root = loader.load();
 
-            // Obtener el controlador del formulario
             FormularioController controller = loader.getController();
             controller.setDatabaseService(dbService);
             Empleado empleado = dbService.selectById(dpi);
             controller.setEmpleado(empleado);
 
-            // Crear una nueva ventana para el formulario
             Stage stage = new Stage();
             stage.setTitle("Editar Empleado");
             stage.setScene(new Scene(root));
@@ -98,44 +117,24 @@ public class MainController {
         }
     }
 
-
     @FXML
     public void onSynchronizeButtonClick() throws SQLException {
-        // Crear instancias de servicio para ambas bases de datos
-        DatabaseService mySqlService = new DatabaseService(new MySQLDatabaseStrategy());
-        DatabaseService postgresService = new DatabaseService(new PostgresDatabaseStrategy());
-
-        // Conectar a ambas bases de datos
-        mySqlService.connect();
-        postgresService.connect();
-
-        // Contar registros en ambas bases de datos
-        int mySqlCount = mySqlService.count();
+        int mySqlCount = mysqlService.count();
         int postgresCount = postgresService.count();
 
-        // Comparar conteos y actuar en consecuencia
-        if (mySqlCount == postgresCount)
+        if (mySqlCount == postgresCount) {
             insercionesNuevas.showAlert("Éxito", "Las bases de datos están sincronizadas.", AlertType.INFORMATION);
-        //actualizamos postgress por que es el que tiene menos contenido
-        if (mySqlCount > postgresCount) {
-            System.out.println("Postgress tiene menos contenido");
+        } else if (mySqlCount > postgresCount) {
             nombreDatabase = "Postgress";
-            insercionesNuevas.actualizarPosgres(mySqlService, postgresService);
-            insercionesNuevas.sincronizar(mySqlService, postgresService, nombreDatabase);
-
-        }
-        //actualizamos Mysql por que es el que tiene menos contenido
-
-        if (mySqlCount < postgresCount){
+            insercionesNuevas.actualizarPosgres(mysqlService, postgresService);
+            insercionesNuevas.sincronizar(mysqlService, postgresService, nombreDatabase);
+        } else {
             nombreDatabase = "MySQL";
-            insercionesNuevas.actualizarMySQL(mySqlService, postgresService);
-            insercionesNuevas.sincronizar(mySqlService, postgresService, nombreDatabase);
+            insercionesNuevas.actualizarMySQL(mysqlService, postgresService);
+            insercionesNuevas.sincronizar(mysqlService, postgresService, nombreDatabase);
         }
-
     }
 
-
-    /*Nueva ventana*/
     @FXML
     public void onOpenNewWindowClick() {
         try {
@@ -155,15 +154,17 @@ public class MainController {
         }
     }
 
+    @FXML
     public void onShow(ActionEvent actionEvent) throws SQLException {
         MySQL.getItems().clear();
         Postgress.getItems().clear();
 
-        if (nombreDatabase.equals("MySQL"))
-            dbService.selectAll().forEach(empleado -> MySQL.getItems().add(empleado.toString()));
-        if (nombreDatabase.equals("Postgress"))
-            dbService.selectAll().forEach(empleado -> Postgress.getItems().add(empleado.toString()));
-
-
+        dbService.selectAll().forEach(empleado -> {
+            if (nombreDatabase.equals("MySQL")) {
+                MySQL.getItems().add(empleado.toString());
+            } else if (nombreDatabase.equals("Postgress")) {
+                Postgress.getItems().add(empleado.toString());
+            }
+        });
     }
 }
