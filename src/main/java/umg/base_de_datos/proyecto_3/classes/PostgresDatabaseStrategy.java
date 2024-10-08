@@ -23,6 +23,12 @@ public class PostgresDatabaseStrategy implements DatabaseStrategy {
     }
 
     @Override
+    public void limpiarBitacora() {
+        String query = "DELETE FROM bitacora";
+        executeUpdate(query);
+    }
+
+    @Override
     public void insert(Empleado empleado) throws SQLException {
         String query = "INSERT INTO empleados (dpi, primer_nombre, segundo_nombre, primer_apellido, segundo_apellido,direccion_domiciliar, telefono_de_casa, telefono_movil, salario_base, bonificacion) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         PreparedStatement preparedStatement = connection.prepareStatement(query);

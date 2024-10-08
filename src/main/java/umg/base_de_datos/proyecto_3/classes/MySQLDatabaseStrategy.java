@@ -62,6 +62,12 @@ public class MySQLDatabaseStrategy implements DatabaseStrategy {
     }
 
     @Override
+    public void limpiarBitacora() {
+        String query = "DELETE FROM bitacora";
+        executeUpdate(query);
+    }
+
+    @Override
     public List<Empleado> selectAll() {
         String query = "SELECT * FROM empleados";
         List<Empleado> empleados = new ArrayList<>();

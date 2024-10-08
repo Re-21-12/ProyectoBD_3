@@ -16,8 +16,9 @@ public class InsercionesNuevas {
         // Si MySQL tiene más registros, actualizar PostgreSQL
         mySqlService.selectAll().forEach(empleado -> {
             try {
-                if(postgresService.selectById(empleado.getDpi()) == null)
-                postgresService.insert(empleado);  // Usar el servicio de Postgres existente
+                if (postgresService.selectById(empleado.getDpi()).getDpi() == null) {
+                    postgresService.insert(empleado);  // Usar el servicio de Postgres existente
+                }
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -30,8 +31,9 @@ public class InsercionesNuevas {
         // Si PostgreSQL tiene más registros, actualizar MySQL
         postgresService.selectAll().forEach(empleado -> {
             try {
-                if(mySqlService.selectById(empleado.getDpi()) == null)
-                mySqlService.insert(empleado);  // Usar el servicio de MySQL existente
+                if (mySqlService.selectById(empleado.getDpi()).getDpi() == null) {
+                    mySqlService.insert(empleado);  // Usar el servicio de MySQL existente
+                }
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -52,14 +54,15 @@ public class InsercionesNuevas {
             //recorro las bitacoras en posgress
             for (Bitacora bitacora : bitacorasPosgress) {
                 //recorro los empleados en mysql
-              for(Empleado empleado: empleadosMySQl){
-                  //si alguna bitacora tiene el mismo dpi que un empleado en mysql
-                  if(bitacora.getDpi() == empleado.getDpi()){
-                      //entonces lo actualizo en mysql
-                      mySqlService.update(empleado, empleado.getDpi());
-                  }
-              }
+                for (Empleado empleado : empleadosMySQl) {
+                    //si alguna bitacora tiene el mismo dpi que un empleado en mysql
+                    if (bitacora.getDpi() == empleado.getDpi()) {
+                        //entonces lo actualizo en mysql
+                        mySqlService.update(empleado, empleado.getDpi());
+                    }
+                }
             }
+            mySqlService.limpiarBitacora();
         }
         if (nombre.equals("Postgress")) {
             bitacorasMySQL = mySqlService.selectAllBitacora();
@@ -67,15 +70,17 @@ public class InsercionesNuevas {
             //recorro las bitacoras en mysql
             for (Bitacora bitacora : bitacorasMySQL) {
                 //recorro los empleados en posgress
-                for(Empleado empleado: empleadosPosgress){
+                for (Empleado empleado : empleadosPosgress) {
                     //si alguna bitacora tiene el mismo dpi que un empleado en posgress
-                    if(bitacora.getDpi() == empleado.getDpi()){
+                    if (bitacora.getDpi() == empleado.getDpi()) {
                         //entonces lo actualizo en posgress
                         postgresService.update(empleado, empleado.getDpi());
                     }
                 }
             }
+            mySqlService.limpiarBitacora();
         }
+
     }
 
     public void showAlert(String title, String message, Alert.AlertType alertType) {

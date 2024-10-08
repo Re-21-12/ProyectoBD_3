@@ -49,4 +49,9 @@ public class DatabaseService {
     public int count() throws SQLException {
         return strategy.count();
     }
+
+    public void limpiarBitacora() throws SQLException {
+        strategy.limpiarBitacora();
+    }
+
 }

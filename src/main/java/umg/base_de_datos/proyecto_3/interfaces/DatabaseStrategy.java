@@ -24,4 +24,6 @@ public interface DatabaseStrategy {
     Empleado selectById(String dpi) throws SQLException;
 
     int count() throws SQLException;
+
+    void limpiarBitacora() throws SQLException;
 }
